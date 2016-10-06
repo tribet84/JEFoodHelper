@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Just Eat Food Helper",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "JEFHE helps you to understand what a dish is about by showing pictures and descriptions.",
+    "description": "The description of the application"
+  }
+}
