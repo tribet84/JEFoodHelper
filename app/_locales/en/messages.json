@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Just Eat Food Helper",
-    "description": "The name of the application"
+    "message": "JustEat Food Helper (aka JeFe)",
+    "description": "Your dish advisor"
   },
   "appDescription": {
-    "message": "JEFHE helps you to understand what a dish is about by showing pictures and descriptions.",
-    "description": "The description of the application"
+    "message": "JeFe helps you to understand what a dish is about.",
+    "description": "JeFe will show you pictures and description about the different dishes in the JustEat restaurants. It also provides links to Wikipedia for every dish."
   }
 }
