@@ -44,8 +44,7 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "https://www.just-eat.co.uk/*/menu"
       ],
       "js": [
         "scripts/contentscript.js"
