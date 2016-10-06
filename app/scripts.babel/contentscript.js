@@ -35,7 +35,7 @@ $(document).ready(function () {
     interactive: true,
     functionReady: function (instance, helper) {
       var dish = instance._$origin['0'].innerText;
-      var fotorama = $.parseHTML('<div class="fotorama" data-fit="cover" data-auto="false" data-width="120" data-height="120"></div>');
+      var fotorama = $.parseHTML('<div class="fotorama" data-keyboard="true" data-autoplay="true" data-fit="cover" data-auto="false" data-width="250" data-height="250"></div>');
       instance.content(fotorama);
       addGoogleImages(dish);
     }
@@ -61,7 +61,16 @@ function addWikiDescription(instance) {
       var clearedData = wikiData[2].filter(function (v) { return v !== '' });
       if (clearedData.length != 0)
         text = clearedData[0];
-      instance.content($.parseHTML('<a href="' + wikiData[3][0] + '" target="_blank">' + text + '</a>'));
+
+      var html = `<div id="wrap">
+<div class="box" style="width: 70%">
+'<a href="` + wikiData[3][0] + '" target="_blank">' + text + `'</a>
+</div>
+<div class="box" style="width: 30%">
+<img style="max-width: 120px;" src="http://gordonramsay.neocities.org/gordon.png"></img>
+</div>
+</div>`;
+      instance.content($.parseHTML(html));
     });
 }
 

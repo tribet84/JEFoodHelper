@@ -58,7 +58,8 @@
       "css": [
         "thirdParty/fotorama.css",
         "thirdParty/tooltipster.bundle.min.css",
-        "thirdParty/tooltipster-sideTip-punk.min.css"
+        "thirdParty/tooltipster-sideTip-punk.min.css",
+        "styles/main.css"
       ],
       "run_at": "document_end",
       "all_frames": false
