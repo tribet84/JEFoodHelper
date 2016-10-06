@@ -11,6 +11,9 @@
   "background": {
     "scripts": [
       "scripts/chromereload.js",
+      "thirdParty/jquery-3.1.1.min.js",
+      "thirdParty/fotorama.js",
+      "thirdParty/tooltipster.bundle.min.js",
       "scripts/background.js"
     ]
   },
@@ -47,7 +50,15 @@
         "https://www.just-eat.co.uk/*/menu"
       ],
       "js": [
+        "thirdParty/jquery-3.1.1.min.js",
+        "thirdParty/fotorama.js",
+        "thirdParty/tooltipster.bundle.min.js",
         "scripts/contentscript.js"
+      ],
+      "css": [
+        "thirdParty/fotorama.css",
+        "thirdParty/tooltipster.bundle.min.css",
+        "thirdParty/tooltipster-sideTip-punk.min.css"
       ],
       "run_at": "document_end",
       "all_frames": false

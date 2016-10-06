@@ -1,30 +1,90 @@
 'use strict';
 
-var getelementbyclass = function (node) {
-  if (node.className == ('name ')) //filter out elements with this class attribute
-    return NodeFilter.FILTER_ACCEPT
-  else
-    return NodeFilter.FILTER_SKIP
-}
+$(document).ready(function () {
 
-function textNodesUnder(element) {
-  var node = void 0;
-  var textNodes = [];
+  var myElement = $('.tooltip');
 
-  var walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, getelementbyclass, false);
+  myElement.tooltipster({
+    theme: 'tooltipster-punk',
+    functionPosition: function (instance, helper, position) {
+      position.coord.left -= 137;
+      return position;
+    },
+    content: 'Looking for description...',
+    maxWidth: 400,
+    side: 'top',
+    interactive: true,
+    functionReady: function (instance, helper) {
+      addWikiDescription(instance);
+    },
+    animation: 'fall'
+  });
 
-  while (node = walker.nextNode()) {
-    textNodes.push(node);
-  }
-
-  return textNodes;
-}
-
-var textNodes = textNodesUnder(document.body);
-
-textNodes.forEach(function (node) {
-  var imageNode = document.createElement('img');
-  imageNode.src = 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Curation_bar_icon_info_16x16.png';
-  imageNode.alt = 'More  info';
-  return node.appendChild(imageNode);
+  myElement.tooltipster({
+    theme: 'tooltipster-punk',
+    functionPosition: function (instance, helper, position) {
+      position.coord.left -= 137;
+      return position;
+    },
+    content: 'Looking for pictures...',
+    animation: 'slide',
+    updateAnimation: null,
+    trackTooltip: true,
+    multiple: true,
+    side: 'bottom',
+    interactive: true,
+    functionReady: function (instance, helper) {
+      var dish = instance._$origin['0'].innerText;
+      var fotorama = $.parseHTML('<div class="fotorama" data-fit="cover" data-auto="false" data-width="120" data-height="120"></div>');
+      instance.content(fotorama);
+      addGoogleImages(dish);
+    }
+  });
 });
+
+function addWikiDescription(instance) {
+  // get description from Wikipedia
+  var dish = instance._$origin['0'].innerText;
+  var url = 'https://en.wikipedia.org/w/api.php';
+  $.getJSON(url, {
+    search: dish,
+    action: 'opensearch',
+    suggest: true,
+    format: 'json',
+    limit: 2,
+    utf8: true,
+    ascii: true
+  },
+    function (wikiData) {
+      // sometimes data is empty
+      var text = wikiData[0];
+      var clearedData = wikiData[2].filter(function (v) { return v !== '' });
+      if (clearedData.length != 0)
+        text = clearedData[0];
+      instance.content($.parseHTML('<a href="' + wikiData[3][0] + '" target="_blank">' + text + '</a>'));
+    });
+}
+
+function addGoogleImages(dish) {
+  // get images from Google
+  var url = 'https://www.googleapis.com/customsearch/v1';
+  var images = [];
+  $.getJSON(url, {
+    q: dish,
+    key: 'AIzaSyAM_qwB41HeKMkvnbPWXuSnJh6FK7KR1e4',
+    cx: '011534142765689922040:lt8lkf6zbvs',
+    searchType: 'image',
+    imgSize: 'medium',
+    alt: 'json'
+  }, function (data) {
+    data.items.forEach(function (item) {
+      images.push({ img: item.link });
+    });
+    $('.fotorama').fotorama({
+      data: images
+    });
+  });
+}
+
+$('div.information > h4').addClass('tooltip');
+$('.orderDetail').siblings().addClass('tooltip');
