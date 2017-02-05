@@ -57,14 +57,22 @@ function addWikiDescription(instance) {
   },
     function (wikiData) {
       // sometimes data is empty
+
       var text = wikiData[0];
       var clearedData = wikiData[2].filter(function (v) { return v !== '' });
-      if (clearedData.length != 0)
+      var wikiLink = '';
+      if (clearedData.length != 0) {
+        wikiLink = wikiData[3][0];
         text = clearedData[0];
+      } else {
+        wikiLink = 'https://en.wikipedia.org/wiki/Special:Search?search='+wikiData[0];
+        text = 'No entry found in Wiki';
+      }
+
 
       var html = `<div id="wrap">
 <div class="box" style="width: 70%">
-'<a href="` + wikiData[3][0] + '" target="_blank">' + text + `'</a>
+'<a href="` + wikiLink + '" target="_blank">' + text + `'</a>
 </div>
 <div class="box" style="width: 30%">
 <img style="max-width: 120px;" src="http://gordonramsay.neocities.org/gordon.png"></img>
